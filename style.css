@@ -1,0 +1,11 @@
+#container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#checkbox{
+    margin-top: 30pt;
+    margin-left: 30pt;
+
+}

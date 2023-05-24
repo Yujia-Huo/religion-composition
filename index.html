@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+    <head> 
+        <script src="https://d3js.org/d3.v7.js"></script>
+        <link rel="stylesheet" href="./style.css">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    </head>
+
+
+    <body>
+        <div id="container">
+            <div id="viz"></div>
+
+            <div>
+                <select id="year-select">
+                  <option value="2010">2010</option>
+                  <option value="2020">2020</option>
+                  <option value="2030">2030</option>
+                  <!-- Add more options for other years as needed -->
+                </select>
+              </div>
+
+            <div id="checkbox">
+                <div>
+                <input class="option" type="checkbox" value="Christians" checked>
+                <label for="Christians">Christians</label>
+                </div>
+            
+                <div>
+                <input class="option" type="checkbox" value="Muslims" checked>
+                <label for="Muslims">Muslims</label>
+                </div>
+
+                <div>
+                <input class="option" type="checkbox" value="Hindus" checked>
+                <label for="Hindus">Hindus</label>
+                </div>
+
+                <div>
+                <input class="option" type="checkbox" value="Unaffiliated" checked>
+                <label for="Unaffiliated">Unaffiliated</label>
+                </div>
+
+                <div>
+                <input class="option" type="checkbox" value="Buddhists" checked>
+                <label for="Buddhists">Buddhists</label>
+                </div>
+
+
+                <div>
+                <input class="option" type="checkbox" value="FolkReligions" checked>
+                <label for="Folk Religions">Folk Religions</label>
+                </div>
+
+                <div>
+                <input class="option" type="checkbox" value="OtherReligions" checked>
+                <label for="Other Religions">Other Religions</label>
+                </div>
+
+                <div>
+                <input class="option" type="checkbox" value="Jews" checked>
+                    <label for="Jews">Jews</label>
+                </div>
+
+
+                <div>
+                    <button id="select-all-btn">Select All</button>
+                    <button id="deselect-all-btn">Deselect All</button>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <script src="./script.js"></script>
+
+    </body>
+
+
+
+
+
+
+
+
+
+
+</html>
