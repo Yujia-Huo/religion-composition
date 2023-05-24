@@ -1,5 +1,5 @@
 //set up width and height
-const width =1300;
+const width =1500;
 const height = 900;
 
 
@@ -71,7 +71,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
 
     const x = d3.scalePoint()
     .domain(regions)
-    .range([200, width - 100]); 
+    .range([250, width - 150]); 
 
     // Initialize the simulations and node groups for each region
     let simulations = {};
@@ -85,10 +85,10 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
   // Create the nodes for the current region
     let nodes = [];
     regionData.forEach(d => {
-    let circleCount = Math.round(d.value / 6000000);
+    let circleCount = Math.round(d.value / 5000000);
         for (let i = 0; i < circleCount; i++) {
             nodes.push({
-            radius: 5,
+            radius: 4,
             group: d.group
             });
         }
@@ -104,12 +104,12 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
     .style("fill", d => color(d.group))
     .style("fill-opacity", 0.8)
     .attr("stroke", "black")
-    .style("stroke-width", 1);
+    .style("stroke-width", 0.3);
 
 
     svg.append("text")
-    .attr("x", x(region))
-    .attr("y", 50)  // adjust this value as needed
+    .attr("x", (x(region)-40))
+    .attr("y", 100)  // adjust this value as needed
     .style("text-anchor", "middle")
     .style("font-size", "20px") // adjust this value as needed
     .style("fill", "black")
@@ -117,11 +117,14 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
 
   // Initialize the simulation for the current region
     let simulation = d3.forceSimulation(nodes)
-    .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length + 0.5)))) // Adjust the x-position based on the region index
+    .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length+1)))) // Adjust the x-position based on the region index
     .force("y", d3.forceY().strength(0.1).y(height / 2))
-    .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length + 0.5))).y(height / 2)) // Adjust the center position based on the region index
-    .force("charge", d3.forceManyBody().strength(8))
-    .force("collide", d3.forceCollide().strength(.1).radius(8).iterations(1));
+    .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length+1))).y(height / 2)) // Adjust the center position based on the region index
+    .force("charge", d3.forceManyBody().strength(.1))
+    .force("collide", d3.forceCollide().strength(.1).radius(10).iterations(1))
+    .tick(20)
+    .alphaDecay(0.15);
+    // .tick(100);
 
   // Store the simulation and node group for the current region
   simulations[region] = simulation;
@@ -236,7 +239,7 @@ d3.select("#deselect-all-btn")
             let circleCount = Math.round(d.value / 6000000);
             for (let i = 0; i < circleCount; i++) {
               nodes.push({
-                radius: 5,
+                radius: 4,
                 group: d.group
               });
             }
@@ -252,15 +255,17 @@ d3.select("#deselect-all-btn")
             .style("fill", d => color(d.group))
             // .style("fill-opacity", 0.8)
             .attr("stroke", "black")
-            .style("stroke-width", 1);
+            .style("stroke-width", 0.3);
       
           // Initialize the simulation for the current region
           let simulation = d3.forceSimulation(nodes)
-            .force("x", d3.forceX().strength(1.5).x((i + 1) * (width / (regions.length + 0.5)))) // Adjust the x-position based on the region index
-            .force("y", d3.forceY().strength(0.1).y(height / 2))
-            .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length + 0.5))).y(height / 2)) // Adjust the center position based on the region index
-            .force("charge", d3.forceManyBody().strength(8))
-            .force("collide", d3.forceCollide().strength(.1).radius(8).iterations(1));
+          .force("x", d3.forceX().strength(2).x((i + 1) * (width / (regions.length+1)))) // Adjust the x-position based on the region index
+          .force("y", d3.forceY().strength(0.1).y(height / 2))
+          .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length+1))).y(height / 2)) // Adjust the center position based on the region index
+          .force("charge", d3.forceManyBody().strength(.1))
+          .force("collide", d3.forceCollide().strength(2).radius(7).iterations(1))
+          .alphaDecay(0.15);
+      
       
           // Store the simulation and node group for the current region
           simulations[region] = simulation;
