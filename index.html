@@ -10,12 +10,16 @@
 
 
     <body>
+        <div id="title">
+        <img src="logo.png" alt="My beautiful image" height="100">
+        <h2>Religions Composition By Region </br>2010-2050</h2>
+        </div>
         <div id="container">
             <div id="viz"></div>
 
-            <div id="checkbox">
+            <div id="control">
 
-                <div>
+                <div id="dropDown">
                     <select id="year-select">
                       <option value="2010">2010</option>
                       <option value="2020">2020</option>
@@ -28,75 +32,75 @@
 
 
                 <div class="checkbox-container">
-                    <svg height="20" width="20">
-                    <circle cx="10" cy="10" r="6" stroke="black" stroke-width="1" fill="#4e79a7" />
-                    </svg>
                     <input class="option" type="checkbox" value="Christians" checked>
+                    <svg height="20" width="20">
+                    <circle cx="10" cy="10" r="6" stroke="black" stroke-width=".5" fill="#4e79a7" />
+                    </svg>
                     <label for="Christians">Christians</label>
                 </div>
             
                 <div class="checkbox-container">
-                    <svg height="20" width="20">
-                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width="1" fill="#f28e2c" />
-                        </svg>
                     <input class="option" type="checkbox" value="Muslims" checked>
+                    <svg height="20" width="20">
+                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width=".5" fill="#f28e2c" />
+                        </svg>
                     <label for="Muslims">Muslims</label>
                 </div>
 
                 <div class="checkbox-container">
+                    <input class="option" type="checkbox" value="Hindus" checked>
                     <svg height="20" width="20">
-                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width="1" fill="#76b7b2" />
+                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width=".5" fill="#76b7b2" />
 
                         </svg>
-                    <input class="option" type="checkbox" value="Hindus" checked>
                     <label for="Hindus">Hindus</label>
                 </div>
 
                 <div class="checkbox-container">
-                    <svg height="20" width="20">
-                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width="1" fill="#e15759" />
-                        </svg>
                     <input class="option" type="checkbox" value="Unaffiliated" checked>
+                    <svg height="20" width="20">
+                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width=".5" fill="#e15759" />
+                        </svg>
                     <label for="Unaffiliated">Unaffiliated</label>
                 </div>
 
                 <div class="checkbox-container">
-                    <svg height="20" width="20">
-                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width="1" fill="#59a14f" />
-                        </svg>
                     <input class="option" type="checkbox" value="Buddhists" checked>
+                    <svg height="20" width="20">
+                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width=".5" fill="#59a14f" />
+                        </svg>
                     <label for="Buddhists">Buddhists</label>
                 </div>
 
 
                 <div class="checkbox-container">
-                    <svg height="20" width="20">
-                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width="1" fill="#edc949" />
-                        </svg>
                     <input class="option" type="checkbox" value="FolkReligions" checked>
+                    <svg height="20" width="20">
+                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width=".5" fill="#edc949" />
+                        </svg>
                     <label for="Folk Religions">Folk Religions</label>
                 </div>
 
                 <div class="checkbox-container">
-                    <svg height="20" width="20">
-                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width="1" fill="#af7aa1" />
-                        </svg>
                     <input class="option" type="checkbox" value="OtherReligions" checked>
+                    <svg height="20" width="20">
+                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width=".5" fill="#af7aa1" />
+                        </svg>
                     <label for="Other Religions">Other Religions</label>
                 </div>
 
                 <div class="checkbox-container">
-                    <svg height="20" width="20">
-                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width="1" fill="#ff9da7" />
-                        </svg>
                     <input class="option" type="checkbox" value="Jews" checked>
+                    <svg height="20" width="20">
+                        <circle cx="10" cy="10" r="6" stroke="black" stroke-width=".5" fill="#ff9da7" />
+                        </svg>
                     <label for="Jews">Jews</label>
                 </div>
 
 
-                <div>
+                <div id="buttons">
                     <button id="select-all-btn">Select All</button>
-                    <button id="deselect-all-btn">Deselect All</button>
+                    <button id="deselect-all-btn">Clear</button>
                 </div>
             </div>
 
