@@ -2,6 +2,9 @@ body{
     font-family:DM Sans  ;
 }
 
+#viz{
+    width: 80%;
+}
 #container{
     width: 100%;
     display: flex;
@@ -9,7 +12,16 @@ body{
 }
 
 #checkbox{
-    margin-top: 30pt;
-    margin-left: 30pt;
+    margin-top: 70pt;
+    margin-left: 0pt;
+}
 
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container svg {
+margin-right: 8px; /* adjust as needed */
 }

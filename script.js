@@ -1,18 +1,16 @@
 //set up width and height
-const width =1500;
+const width =1400;
 const height = 900;
 
 
-const plot = d3.select("#viz");
 
-const svg= plot.append("svg")
-    .attr("width", width)
-    .attr("height", height)
+const svg = d3.select("#viz")
+.append("svg")
+// .attr("width", width)
+// .attr("height", height);
+.attr("viewBox", `0 0 ${width} ${height}`)
+.attr("preserveAspectRatio", "xMidYMid meet");
 
-
-let pack = d3.pack()
-.size([width, height])
-.padding(1.5);
 
 
     function Parsed(d){
@@ -63,7 +61,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
 
     const color = d3.scaleOrdinal()
     .domain([...new Set(flattenedData.map(d => d.group))])
-    .range(d3.schemeCategory10);
+    .range(d3.schemeTableau10);
 
 
     // First, get a list of all unique regions
@@ -71,7 +69,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
 
     const x = d3.scalePoint()
     .domain(regions)
-    .range([250, width - 150]); 
+    .range([200, width - 200]); 
 
     // Initialize the simulations and node groups for each region
     let simulations = {};
@@ -99,7 +97,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
     .selectAll("circle")
     .data(nodes)
     .join("circle")
-    .attr('class',d=>d.group )
+    .attr('class', d => `clusterCircle ${d.group}`)
     .attr('r', d => d.radius)
     .style("fill", d => color(d.group))
     .style("fill-opacity", 0.8)
@@ -108,10 +106,10 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
 
 
     svg.append("text")
-    .attr("x", (x(region)-40))
+    .attr("x", (x(region)))
     .attr("y", 100)  // adjust this value as needed
     .style("text-anchor", "middle")
-    .style("font-size", "20px") // adjust this value as needed
+    .style("font-size", "16px") // adjust this value as needed
     .style("fill", "black")
     .text(region);
 
@@ -149,28 +147,28 @@ simulation.on("tick", () => {
 let uniqueGroups = [...new Set(flattenedData.map(d => d.group))];
 
 // Create a group for all the legend elements
-let legend = svg.append("g")
-    .attr("class", "legend")
-    .attr("transform", "translate(" + (width-200) + "," + (height - 20 * uniqueGroups.length) + ")");
+// let legend = svg.append("g")
+//     .attr("class", "legend")
+//     .attr("transform", "translate(" + (width-10) + "," + (15.5 * uniqueGroups.length) + ")");
 
 // Add one dot in the legend for each unique group
-legend.selectAll(null)
-    .data(uniqueGroups)
-    .enter()
-    .append("circle")
-    .attr("cy", function(d, i) { return i * 20; }) // 20 is the line height
-    .attr("r", 7)
-    .style("fill", d => color(d));
+// legend.selectAll(null)
+//     .data(uniqueGroups)
+//     .enter()
+//     .append("circle")
+//     .attr("cy", function(d, i) { return i * 21; }) // 20 is the line height
+//     .attr("r", 7)
+//     .style("fill", d => color(d));
 
 // Add labels for each dot
-legend.selectAll(null)
-    .data(uniqueGroups)
-    .enter()
-    .append("text")
-    .attr("x", 10)
-    .attr("y", function(d, i) { return i * 20; }) // 20 is line height
-    .text(d => d)
-    .style("alignment-baseline", "middle");
+// legend.selectAll(null)
+//     .data(uniqueGroups)
+//     .enter()
+//     .append("text")
+//     .attr("x", 10)
+//     .attr("y", function(d, i) { return i * 20; }) // 20 is line height
+//     .text(d => d)
+//     .style("alignment-baseline", "middle");
 
 
 
@@ -226,8 +224,8 @@ d3.select("#deselect-all-btn")
         });
       
         // Remove all existing circles
-        svg.selectAll("circle").remove();
-      
+        svg.selectAll(".clusterCircle").remove();
+
         // Iterate over each unique region
         regions.forEach((region, i) => {
           // Filter the data for the current region
@@ -250,7 +248,7 @@ d3.select("#deselect-all-btn")
             .selectAll("circle")
             .data(nodes)
             .join("circle")
-            .attr('class', d => d.group)
+            .attr('class', d => `clusterCircle ${d.group}`)
             .attr('r', d => d.radius)
             .style("fill", d => color(d.group))
             // .style("fill-opacity", 0.8)
@@ -259,11 +257,12 @@ d3.select("#deselect-all-btn")
       
           // Initialize the simulation for the current region
           let simulation = d3.forceSimulation(nodes)
-          .force("x", d3.forceX().strength(2).x((i + 1) * (width / (regions.length+1)))) // Adjust the x-position based on the region index
+          .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length+1)))) // Adjust the x-position based on the region index
           .force("y", d3.forceY().strength(0.1).y(height / 2))
           .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length+1))).y(height / 2)) // Adjust the center position based on the region index
           .force("charge", d3.forceManyBody().strength(.1))
-          .force("collide", d3.forceCollide().strength(2).radius(7).iterations(1))
+          .force("collide", d3.forceCollide().strength(.1).radius(10).iterations(1))
+          .tick(20)
           .alphaDecay(0.15);
       
       
