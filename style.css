@@ -8,7 +8,7 @@ img{
 }
 
 #viz{
-    width: 80%;
+    width: 100%;
     margin-left: 70pt;
 
 }
@@ -21,20 +21,23 @@ img{
 }
 
 #control{
+    width: 20%;
     margin-top: 70pt;
     margin-left: 0pt;
-    /* padding-right: 50pt; */
+    margin-right: 10pt;
 
 }
-/* #hint{
-    padding-right: 200pt;
+#hint{
+    margin-top: 0pt;
+    font-size: 10pt;
 
-} */
+}
 
 .checkbox-container {
     display: flex;
     align-items: center;
 }
+
 
 .checkbox-container svg {
 margin-right: 8px; /* adjust as needed */

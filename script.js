@@ -214,7 +214,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
         d3.selectAll('.hover-line').remove();
     });
     centroids[region] = {
-      x:  (i + 1) * (width / (regions.length+.5)) - 120,
+      x:  (i + 1) * (width / (regions.length+.4)) - 120,
       y: height / 2
       
     };
@@ -416,7 +416,7 @@ d3.select("#deselect-all-btn")
             // Remaining code...
             let totalText = svg.append("text")
             .attr("class", "hover-text") // add a class to remove later
-            .attr("x", (x(region)+20))
+            .attr("x", (x(region)+30))
             .attr("y", 150) // adjust this value as needed
             .style("text-anchor", "start")
             .style("font-size", "12px") // adjust this value as needed
@@ -438,7 +438,7 @@ d3.select("#deselect-all-btn")
                 if (selectedReligionData) {
                   let religiousText = svg.append("text")
                     .attr("class", "hover-text")
-                    .attr("x", (x(region)+20))
+                    .attr("x", (x(region)+30))
                     .attr("y", 170 + i * 20) 
                     .style("text-anchor", "start")
                     .style("font-size", "12px")
@@ -469,16 +469,16 @@ d3.select("#deselect-all-btn")
               d3.selectAll('.hover-text').remove();
               d3.selectAll('.hover-line').remove();
           });
-            centroids[region] = {
-              x: (i + 1) * (width / (regions.length+.5))-120,
-              y: height / 2
-              
-            };
-          
-            let breakPoint = {
-              x: centroids[region].x,
-              y: ((centroids[region].y + 150) / 2) // adjust this value as needed
-            };
+          centroids[region] = {
+            x:  (i + 1) * (width / (regions.length+.4)) - 120,
+            y: height / 2
+            
+          };
+        
+          let breakPoint = {
+            x: centroids[region].x,
+            y: ((centroids[region].y + 150) / 2) // adjust this value as needed
+          };
           // Initialize the simulation for the current region
           let simulation = d3.forceSimulation(nodes)
           .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length+.4))-120)) // Adjust the x-position based on the region index
