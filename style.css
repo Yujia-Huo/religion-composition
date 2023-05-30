@@ -2,8 +2,15 @@ body{
     font-family:DM Sans  ;
 }
 
+
+img{
+    padding-top: 20px;
+}
+
 #viz{
     width: 80%;
+    margin-left: 70pt;
+
 }
 #container{
     width: 100%;
@@ -29,7 +36,8 @@ margin-right: 8px; /* adjust as needed */
 #title{
     display: flex;
     flex-direction: row;
-    margin-left: 100pt;
+    margin-left: 70pt;
+    margin-top: 20pt;
 }
 
 h2{

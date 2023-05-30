@@ -84,7 +84,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
 
     const x = d3.scalePoint()
     .domain(regions)
-    .range([200, width - 200]); 
+    .range([100, width - 300]); 
 
     // Initialize the simulations and node groups for each region
     let simulations = {};
@@ -174,7 +174,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
         d3.selectAll('.hover-line').remove();
     });
     centroids[region] = {
-      x: (i + 1) * (width / (regions.length+1)),
+      x:  (i + 1) * (width / (regions.length+1)) - 100,
       y: height / 2
       
     };
@@ -196,9 +196,9 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
 
   // Initialize the simulation for the current region
     let simulation = d3.forceSimulation(nodes)
-    .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length+1)))) // Adjust the x-position based on the region index
+    .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length+1))-100)) // Adjust the x-position based on the region index
     .force("y", d3.forceY().strength(0.1).y(height / 2))
-    .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length+1))).y(height / 2)) // Adjust the center position based on the region index
+    .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length+1))-100).y(height / 2)) // Adjust the center position based on the region index
     .force("charge", d3.forceManyBody().strength(.1))
     .force("collide", d3.forceCollide().strength(.1).radius(10).iterations(1))
     .tick(20)
@@ -387,7 +387,7 @@ d3.select("#deselect-all-btn")
                 d3.selectAll('.hover-line').remove();
             });
             centroids[region] = {
-              x: (i + 1) * (width / (regions.length+1)),
+              x: (i + 1) * (width / (regions.length+1))-100,
               y: height / 2
               
             };
@@ -398,9 +398,9 @@ d3.select("#deselect-all-btn")
             };
           // Initialize the simulation for the current region
           let simulation = d3.forceSimulation(nodes)
-          .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length+1)))) // Adjust the x-position based on the region index
+          .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length+1))-100)) // Adjust the x-position based on the region index
           .force("y", d3.forceY().strength(0.1).y(height / 2))
-          .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length+1))).y(height / 2)) // Adjust the center position based on the region index
+          .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length+1))-100).y(height / 2)) // Adjust the center position based on the region index
           .force("charge", d3.forceManyBody().strength(.1))
           .force("collide", d3.forceCollide().strength(.1).radius(10).iterations(1))
           .tick(20)
