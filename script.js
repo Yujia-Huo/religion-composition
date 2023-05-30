@@ -95,6 +95,8 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
   // Filter the data for the current region
     let regionData = filtered_data.filter(d => d.region === region);
 
+    console.log (regionData);
+
   // Create the nodes for the current region
     let nodes = [];
     regionData.forEach(d => {
@@ -118,10 +120,12 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
           height: '250pt',
           x: x(region)-90,
           y: 300,
-          region: region // assuming region is a variable in your code
+          region: region,
+          value1: regionData[0].value // assuming region is a variable in your code
       }
   ];
 
+  // console.log(rectData.value1)
 
 
     let nodeGroup = nodeGroupG
@@ -150,16 +154,52 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
     .on('mouseover', (event, d) => {
         let region = d.region;
         const format = d3.format(",");
-        console.log(region);
+        // console.log(region);
+        // let populationDataString = regionData.map(religionData => `${religionData.group}: ${format(religionData.value)}`).join('\n');
       // Remaining code...
-        svg.append("text")
-        .attr("class", "hover-text") // add a class to remove later
-        .attr("x", (x(region)+50))
-        .attr("y", 200) // adjust this value as needed
-        .style("text-anchor", "start")
-        .style("font-size", "13px") // adjust this value as needed
-        .style("fill", "black")
-        .text("Total: " + format(totalByRegion[region]));
+      let totalText = svg.append("text")
+      .attr("class", "hover-text") // add a class to remove later
+      .attr("x", (x(region)+50))
+      .attr("y", 150) // adjust this value as needed
+      .style("text-anchor", "start")
+      .style("font-size", "13px") // adjust this value as needed
+      .style("fill", "black")
+      .style("font-weight", "bold")
+      .text("Total: ");
+  
+        totalText.append("tspan")
+        .style("font-weight", "normal")
+        .attr("x", (x(region)+50) + svg.select(".hover-text").node().getComputedTextLength())
+        .text(format(totalByRegion[region]));
+
+
+        console.log(selectedReligions);
+
+        selectedReligions.forEach((selectedReligion, i) => {
+          let selectedReligionData = regionData.find(religionData => religionData.group === selectedReligion);
+        
+          if (selectedReligionData) {
+            let religiousText = svg.append("text")
+              .attr("class", "hover-text")
+              .attr("x", (x(region)+50))
+              .attr("y", 170 + i * 20) 
+              .style("text-anchor", "start")
+              .style("font-size", "13px")
+              .style("fill", "black")
+              .style("font-weight", "bold")
+              .text(`${selectedReligionData.group}:`);
+              
+            religiousText.append("tspan")
+            .attr("class", "hover-text")
+              .style("font-weight", "normal")
+              .style("text-anchor", "start")
+              .style("font-size", "13px") 
+              .style("fill", "black")
+              .text(` ${format(selectedReligionData.value)}`);
+          }
+        });
+        
+
 
         svg.append("path")
         .attr("class", "hover-line") // add a class to remove later
@@ -184,7 +224,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
       y: ((centroids[region].y + 150) / 2) // adjust this value as needed
     };
     
-    console.log(nodes);
+    // console.log(nodes);
     svg.append("text")
     .attr("x", (x(region)))
     .attr("y", 100)  // adjust this value as needed
@@ -234,29 +274,33 @@ let uniqueGroups = [...new Set(flattenedData.map(d => d.group))];
 
 
 
+let selectedReligions = [];
 
 
 
 
-    function update() {
-        const checkedGroups = [];
-        d3.selectAll(".option").each(function(d) {
-          const cb = d3.select(this);
-          const grp = cb.property("value");
+function update() {
+  // Start with an empty array
+  selectedReligions = [];
+
+  d3.selectAll(".option").each(function(d) {
+    const cb = d3.select(this);
+    const grp = cb.property("value");
+
+    // Only add to selectedReligions if checkbox is checked
+    if (cb.property("checked")) {
+      selectedReligions.push(grp);
+      svg.selectAll("." + grp).transition().duration(1000).style("fill-opacity", 1);
+    } else {
+      svg.selectAll("." + grp).transition().duration(1000).style("fill-opacity", 0);
+    }
+  });
+}
+
       
-          if (cb.property("checked")) {
-            checkedGroups.push(grp);
-            svg.selectAll("." + grp).transition().duration(1000).style("fill-opacity", 1);
-          } else {
-            svg.selectAll("." + grp).transition().duration(1000).style("fill-opacity", function(d) {
-              return checkedGroups.includes(d.group) ? 1 : 0;
-            });
-          }
-        });
-      }
-      
 
 
+      // console.log(selectedReligion);
     function selectAll() {
         d3.selectAll(".option").property("checked", true);
         update();
@@ -275,6 +319,7 @@ let uniqueGroups = [...new Set(flattenedData.map(d => d.group))];
 d3.select("#deselect-all-btn")
   .on("click", deselectAll);
 
+  // console.log(selectedReligion);
 
 
     d3.selectAll(".option").on("change",update);
@@ -311,6 +356,7 @@ d3.select("#deselect-all-btn")
           // Filter the data for the current region
           let regionData = filtered_data.filter(d => d.region === region);
       
+          console.log (regionData);
           // Create the nodes for the current region
           let nodes = [];
           regionData.forEach(d => {
@@ -363,31 +409,67 @@ d3.select("#deselect-all-btn")
             
             rect
             .on('mouseover', (event, d) => {
-                let region = d.region;
-                const format = d3.format(",");
-                console.log(region);
-              // Remaining code...
-                svg.append("text")
-                .attr("class", "hover-text") // add a class to remove later
-                .attr("x", (x(region)+50))
-                .attr("y", 200) // adjust this value as needed
-                .style("text-anchor", "start")
-                .style("font-size", "13px") // adjust this value as needed
-                .style("fill", "black")
-                .text("Total: " + format(totalByRegion[region]));
+              let region = d.region;
+              const format = d3.format(",");
+              // console.log(region);
+              // let populationDataString = regionData.map(religionData => `${religionData.group}: ${format(religionData.value)}`).join('\n');
+            // Remaining code...
+            let totalText = svg.append("text")
+            .attr("class", "hover-text") // add a class to remove later
+            .attr("x", (x(region)+50))
+            .attr("y", 150) // adjust this value as needed
+            .style("text-anchor", "start")
+            .style("font-size", "13px") // adjust this value as needed
+            .style("fill", "black")
+            .style("font-weight", "bold")
+            .text("Total: ");
         
-                svg.append("path")
-                .attr("class", "hover-line") // add a class to remove later
-                .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+50} 200`) // adjust this value as needed
-                .attr("stroke", "black")
-                .attr("stroke-width", .5)
-                .attr("fill", "none");
-              })
-            .on("mouseout", function() {
-                // Remove the text and line when mouse is moved out
-                d3.selectAll('.hover-text').remove();
-                d3.selectAll('.hover-line').remove();
-            });
+              totalText.append("tspan")
+              .style("font-weight", "normal")
+              .attr("x", (x(region)+50) + svg.select(".hover-text").node().getComputedTextLength())
+              .text(format(totalByRegion[region]));
+      
+      
+              console.log(selectedReligions);
+      
+              selectedReligions.forEach((selectedReligion, i) => {
+                let selectedReligionData = regionData.find(religionData => religionData.group === selectedReligion);
+              
+                if (selectedReligionData) {
+                  let religiousText = svg.append("text")
+                    .attr("class", "hover-text")
+                    .attr("x", (x(region)+50))
+                    .attr("y", 170 + i * 20) 
+                    .style("text-anchor", "start")
+                    .style("font-size", "13px")
+                    .style("fill", "black")
+                    .style("font-weight", "bold")
+                    .text(`${selectedReligionData.group}:`);
+                    
+                  religiousText.append("tspan")
+                  .attr("class", "hover-text")
+                    .style("font-weight", "normal")
+                    .style("text-anchor", "start")
+                    .style("font-size", "13px") 
+                    .style("fill", "black")
+                    .text(` ${format(selectedReligionData.value)}`);
+                }
+              });
+              
+      
+      
+              svg.append("path")
+              .attr("class", "hover-line") // add a class to remove later
+              .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+50} 200`) // adjust this value as needed
+              .attr("stroke", "black")
+              .attr("stroke-width", .5)
+              .attr("fill", "none");
+            })
+          .on("mouseout", function() {
+              // Remove the text and line when mouse is moved out
+              d3.selectAll('.hover-text').remove();
+              d3.selectAll('.hover-line').remove();
+          });
             centroids[region] = {
               x: (i + 1) * (width / (regions.length+.5))-100,
               y: height / 2
