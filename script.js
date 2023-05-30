@@ -109,7 +109,22 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
     });
 
   // Create the node group for the current region
-    let nodeGroup = svg.append("g")
+  
+  let nodeGroupG = svg.append("g")
+
+  let rectData = [
+      {
+          width: '137pt',
+          height: '250pt',
+          x: x(region)-90,
+          y: 300,
+          region: region // assuming region is a variable in your code
+      }
+  ];
+
+
+
+    let nodeGroup = nodeGroupG
     .selectAll("circle")
     .data(nodes)
     .join("circle")
@@ -118,9 +133,23 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
     .style("fill", d => color(d.group))
     .style("fill-opacity", 0.8)
     .attr("stroke", "black")
-    .style("stroke-width", 0.3)
+    .style("stroke-width", 0.3);
+
+
+    let rect = nodeGroupG.selectAll('.bg')
+    .data(rectData)
+    .join('rect')
+    .attr('width', d => d.width)
+    .attr('height', d => d.height)
+    .attr('class', d => `bg ${d.region}`)
+    .attr("x", d => d.x)
+    .attr("y", d => d.y)
+    .style('fill', 'transparent');
+    
+    rect
     .on('mouseover', (event, d) => {
         let region = d.region;
+        const format = d3.format(",");
         console.log(region);
       // Remaining code...
         svg.append("text")
@@ -130,13 +159,13 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
         .style("text-anchor", "start")
         .style("font-size", "13px") // adjust this value as needed
         .style("fill", "black")
-        .text("Total: " + totalByRegion[region]);
+        .text("Total: " + format(totalByRegion[region]));
 
         svg.append("path")
         .attr("class", "hover-line") // add a class to remove later
         .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+50} 200`) // adjust this value as needed
         .attr("stroke", "black")
-        .attr("stroke-width", 1)
+        .attr("stroke-width", .5)
         .attr("fill", "none");
       })
     .on("mouseout", function() {
@@ -144,10 +173,17 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
         d3.selectAll('.hover-text').remove();
         d3.selectAll('.hover-line').remove();
     });
-
+    centroids[region] = {
+      x: (i + 1) * (width / (regions.length+1)),
+      y: height / 2
+      
+    };
   
-
-
+    let breakPoint = {
+      x: centroids[region].x,
+      y: ((centroids[region].y + 150) / 2) // adjust this value as needed
+    };
+    
     console.log(nodes);
     svg.append("text")
     .attr("x", (x(region)))
@@ -157,14 +193,6 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
     .style("fill", "black")
     .text(region);
 
-
-    // svg.append("text")
-    // .attr("x", (x(region)))
-    // .attr("y", 150)  // adjust this value as needed
-    // .style("text-anchor", "middle")
-    // .style("font-size", "16px") // adjust this value as needed
-    // .style("fill", "black")
-    // .text("Total: " + totalByRegion[region]);
 
   // Initialize the simulation for the current region
     let simulation = d3.forceSimulation(nodes)
@@ -180,67 +208,6 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
   // Store the simulation and node group for the current region
   simulations[region] = simulation;
   nodeGroups[region] = nodeGroup;
-
-  centroids[region] = {
-    x: (i + 1) * (width / (regions.length+1)),
-    y: height / 2
-    
-  };
-
-  let breakPoint = {
-    x: centroids[region].x,
-    y: ((centroids[region].y + 150) / 2) // adjust this value as needed
-  };
-  
-
-  // svg.append("text")
-  // .attr("x", (x(region)+50))
-  // .attr("y", 200) // adjust this value as needed
-  // .style("text-anchor", "start")
-  // .style("font-size", "13px") // adjust this value as needed
-  // .style("fill", "black")
-  // .text("Total: " + totalByRegion[region]);
-
-  // svg.append("path")
-  // .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+50} 200`) // adjust this value as needed
-  // .attr("stroke", "black")
-  // .attr("stroke-width", 1)
-  // .attr("fill", "none");
-
-  // Select all clusters
-// Select all clusters
-// d3.selectAll(".clusterCircle")
-//     // Add event listener for the "mouseover" event
-//     .on("mouseover", function(d, i) {
-//         // The 'd' parameter represents the data bound to the circle
-//         let region = d.region; // Get the region from the data
-
-//         console.log(region);
-//         svg.append("text")
-//             .attr("class", "hover-text") // add a class to remove later
-//             .attr("x", (x(region)+50))
-//             .attr("y", 200) // adjust this value as needed
-//             .style("text-anchor", "start")
-//             .style("font-size", "13px") // adjust this value as needed
-//             .style("fill", "black")
-//             .text("Total: " + totalByRegion[region]);
-
-//         svg.append("path")
-//             .attr("class", "hover-line") // add a class to remove later
-//             .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+50} 200`) // adjust this value as needed
-//             .attr("stroke", "black")
-//             .attr("stroke-width", 1)
-//             .attr("fill", "none");
-//     })
-//     .on("mouseout", function() {
-//         // Remove the text and line when mouse is moved out
-//         d3.selectAll('.hover-text').remove();
-//         d3.selectAll('.hover-line').remove();
-//     });
-
-
-
-
   
 });
 
@@ -261,29 +228,11 @@ simulation.on("tick", () => {
     // Create a list of all unique groups in your data
 let uniqueGroups = [...new Set(flattenedData.map(d => d.group))];
 
-// Create a group for all the legend elements
-// let legend = svg.append("g")
-//     .attr("class", "legend")
-//     .attr("transform", "translate(" + (width-10) + "," + (15.5 * uniqueGroups.length) + ")");
 
-// Add one dot in the legend for each unique group
-// legend.selectAll(null)
-//     .data(uniqueGroups)
-//     .enter()
-//     .append("circle")
-//     .attr("cy", function(d, i) { return i * 21; }) // 20 is the line height
-//     .attr("r", 7)
-//     .style("fill", d => color(d));
 
-// Add labels for each dot
-// legend.selectAll(null)
-//     .data(uniqueGroups)
-//     .enter()
-//     .append("text")
-//     .attr("x", 10)
-//     .attr("y", function(d, i) { return i * 20; }) // 20 is line height
-//     .text(d => d)
-//     .style("alignment-baseline", "middle");
+
+
+
 
 
 
@@ -338,8 +287,22 @@ d3.select("#deselect-all-btn")
           return d.year === selectedYear;
         });
       
+        let totalByRegion = {};
+
+
+        filtered_data.forEach(d => {
+          if (!totalByRegion[d.region]) {
+              totalByRegion[d.region] = 0;
+          }
+          totalByRegion[d.region] += d.value;
+          });
+  
+          console.log(totalByRegion);
+
+          
         // Remove all existing circles
         svg.selectAll(".clusterCircle").remove();
+        svg.selectAll('.bg').remove();
 
         // Iterate over each unique region
         regions.forEach((region, i) => {
@@ -357,19 +320,82 @@ d3.select("#deselect-all-btn")
               });
             }
           });
-      
+
+
           // Create the node group for the current region
-          let nodeGroup = svg.append("g")
+          let nodeGroupG = svg.append("g")
+
+          let rectData = [
+              {
+                  width: '137pt',
+                  height: '250pt',
+                  x: x(region)-90,
+                  y: 300,
+                  region: region // assuming region is a variable in your code
+              }
+          ];
+        
+        
+        
+            let nodeGroup = nodeGroupG
             .selectAll("circle")
             .data(nodes)
             .join("circle")
             .attr('class', d => `clusterCircle ${d.group}`)
             .attr('r', d => d.radius)
             .style("fill", d => color(d.group))
-            // .style("fill-opacity", 0.8)
+            .style("fill-opacity", 0.8)
             .attr("stroke", "black")
             .style("stroke-width", 0.3);
-      
+        
+        
+            let rect = nodeGroupG.selectAll('.bg')
+            .data(rectData)
+            .join('rect')
+            .attr('width', d => d.width)
+            .attr('height', d => d.height)
+            .attr('class', d => `bg ${d.region}`)
+            .attr("x", d => d.x)
+            .attr("y", d => d.y)
+            .style('fill', 'transparent');
+            
+            rect
+            .on('mouseover', (event, d) => {
+                let region = d.region;
+                const format = d3.format(",");
+                console.log(region);
+              // Remaining code...
+                svg.append("text")
+                .attr("class", "hover-text") // add a class to remove later
+                .attr("x", (x(region)+50))
+                .attr("y", 200) // adjust this value as needed
+                .style("text-anchor", "start")
+                .style("font-size", "13px") // adjust this value as needed
+                .style("fill", "black")
+                .text("Total: " + format(totalByRegion[region]));
+        
+                svg.append("path")
+                .attr("class", "hover-line") // add a class to remove later
+                .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+50} 200`) // adjust this value as needed
+                .attr("stroke", "black")
+                .attr("stroke-width", .5)
+                .attr("fill", "none");
+              })
+            .on("mouseout", function() {
+                // Remove the text and line when mouse is moved out
+                d3.selectAll('.hover-text').remove();
+                d3.selectAll('.hover-line').remove();
+            });
+            centroids[region] = {
+              x: (i + 1) * (width / (regions.length+1)),
+              y: height / 2
+              
+            };
+          
+            let breakPoint = {
+              x: centroids[region].x,
+              y: ((centroids[region].y + 150) / 2) // adjust this value as needed
+            };
           // Initialize the simulation for the current region
           let simulation = d3.forceSimulation(nodes)
           .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length+1)))) // Adjust the x-position based on the region index
