@@ -1,5 +1,5 @@
 //set up width and height
-const width =1400;
+const width =1500;
 const height = 900;
 
 
@@ -84,7 +84,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
 
     const x = d3.scalePoint()
     .domain(regions)
-    .range([100, width - 200]); 
+    .range([100, width - 210]); 
 
     // Initialize the simulations and node groups for each region
     let simulations = {};
@@ -159,17 +159,17 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
       // Remaining code...
       let totalText = svg.append("text")
       .attr("class", "hover-text") // add a class to remove later
-      .attr("x", (x(region)+50))
+      .attr("x", (x(region)+30))
       .attr("y", 150) // adjust this value as needed
       .style("text-anchor", "start")
-      .style("font-size", "13px") // adjust this value as needed
+      .style("font-size", "12px") // adjust this value as needed
       .style("fill", "black")
       .style("font-weight", "bold")
       .text("Total: ");
   
         totalText.append("tspan")
         .style("font-weight", "normal")
-        .attr("x", (x(region)+50) + svg.select(".hover-text").node().getComputedTextLength())
+        // .attr("x", (x(region)+50) + svg.select(".hover-text").node().getComputedTextLength())
         .text(format(totalByRegion[region]));
 
 
@@ -181,10 +181,10 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
           if (selectedReligionData) {
             let religiousText = svg.append("text")
               .attr("class", "hover-text")
-              .attr("x", (x(region)+50))
+              .attr("x", (x(region)+30))
               .attr("y", 170 + i * 20) 
               .style("text-anchor", "start")
-              .style("font-size", "13px")
+              .style("font-size", "12px")
               .style("fill", "black")
               .style("font-weight", "bold")
               .text(`${selectedReligionData.group}:`);
@@ -193,7 +193,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
             .attr("class", "hover-text")
               .style("font-weight", "normal")
               .style("text-anchor", "start")
-              .style("font-size", "13px") 
+              .style("font-size", "12px") 
               .style("fill", "black")
               .text(` ${format(selectedReligionData.value)}`);
           }
@@ -203,7 +203,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
 
         svg.append("path")
         .attr("class", "hover-line") // add a class to remove later
-        .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+50} 200`) // adjust this value as needed
+        .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+30} 200`) // adjust this value as needed
         .attr("stroke", "black")
         .attr("stroke-width", .5)
         .attr("fill", "none");
@@ -214,7 +214,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
         d3.selectAll('.hover-line').remove();
     });
     centroids[region] = {
-      x:  (i + 1) * (width / (regions.length+.5)) - 100,
+      x:  (i + 1) * (width / (regions.length+.5)) - 120,
       y: height / 2
       
     };
@@ -238,9 +238,9 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
 
     // var spacing = 2;
     let simulation = d3.forceSimulation(nodes)
-    .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length+.5))-100)) // Adjust the x-position based on the region index
+    .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length+.4))-120)) // Adjust the x-position based on the region index
     .force("y", d3.forceY().strength(0.1).y(height / 2))
-    .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length+.5))-100).y(height / 2)) // Adjust the center position based on the region index
+    .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length+.4))-120).y(height / 2)) // Adjust the center position based on the region index
     .force("charge", d3.forceManyBody().strength(.1))
     .force("collide", d3.forceCollide().strength(.1).radius(10).iterations(1))
     .tick(20)
@@ -416,17 +416,17 @@ d3.select("#deselect-all-btn")
             // Remaining code...
             let totalText = svg.append("text")
             .attr("class", "hover-text") // add a class to remove later
-            .attr("x", (x(region)+50))
+            .attr("x", (x(region)+20))
             .attr("y", 150) // adjust this value as needed
             .style("text-anchor", "start")
-            .style("font-size", "13px") // adjust this value as needed
+            .style("font-size", "12px") // adjust this value as needed
             .style("fill", "black")
             .style("font-weight", "bold")
             .text("Total: ");
         
               totalText.append("tspan")
               .style("font-weight", "normal")
-              .attr("x", (x(region)+50) + svg.select(".hover-text").node().getComputedTextLength())
+              // .attr("x", (x(region)+50) + svg.select(".hover-text").node().getComputedTextLength())
               .text(format(totalByRegion[region]));
       
       
@@ -438,10 +438,10 @@ d3.select("#deselect-all-btn")
                 if (selectedReligionData) {
                   let religiousText = svg.append("text")
                     .attr("class", "hover-text")
-                    .attr("x", (x(region)+50))
+                    .attr("x", (x(region)+20))
                     .attr("y", 170 + i * 20) 
                     .style("text-anchor", "start")
-                    .style("font-size", "13px")
+                    .style("font-size", "12px")
                     .style("fill", "black")
                     .style("font-weight", "bold")
                     .text(`${selectedReligionData.group}:`);
@@ -450,17 +450,16 @@ d3.select("#deselect-all-btn")
                   .attr("class", "hover-text")
                     .style("font-weight", "normal")
                     .style("text-anchor", "start")
-                    .style("font-size", "13px") 
+                    .style("font-size", "12px") 
                     .style("fill", "black")
                     .text(` ${format(selectedReligionData.value)}`);
                 }
               });
               
       
-      
               svg.append("path")
               .attr("class", "hover-line") // add a class to remove later
-              .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+50} 200`) // adjust this value as needed
+              .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+30} 200`) // adjust this value as needed
               .attr("stroke", "black")
               .attr("stroke-width", .5)
               .attr("fill", "none");
@@ -471,7 +470,7 @@ d3.select("#deselect-all-btn")
               d3.selectAll('.hover-line').remove();
           });
             centroids[region] = {
-              x: (i + 1) * (width / (regions.length+.5))-100,
+              x: (i + 1) * (width / (regions.length+.5))-120,
               y: height / 2
               
             };
@@ -482,9 +481,9 @@ d3.select("#deselect-all-btn")
             };
           // Initialize the simulation for the current region
           let simulation = d3.forceSimulation(nodes)
-          .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length+.5))-100)) // Adjust the x-position based on the region index
+          .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length+.4))-120)) // Adjust the x-position based on the region index
           .force("y", d3.forceY().strength(0.1).y(height / 2))
-          .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length+.5))-100).y(height / 2)) // Adjust the center position based on the region index
+          .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length+.4))-120).y(height / 2)) // Adjust the center position based on the region index
           .force("charge", d3.forceManyBody().strength(.1))
           .force("collide", d3.forceCollide().strength(.1).radius(10).iterations(1))
           .tick(20)
