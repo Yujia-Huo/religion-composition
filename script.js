@@ -37,6 +37,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
 // Prepare the data
     function prepareData(data) {
         let flattenedData = [];
+        
         data.forEach(function(d) {
         Object.keys(d).forEach(function(key) {
             if (key !== 'Year' && key !== 'Region') {
@@ -53,11 +54,25 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
     }
 
 
+
     let flattenedData = prepareData(data);
+
 
     filtered_data = flattenedData.filter(function(d) {
         return d.year === 2010;
       });
+
+      let totalByRegion = {};
+
+
+      filtered_data.forEach(d => {
+        if (!totalByRegion[d.region]) {
+            totalByRegion[d.region] = 0;
+        }
+        totalByRegion[d.region] += d.value;
+        });
+
+        console.log(totalByRegion);
 
     const color = d3.scaleOrdinal()
     .domain([...new Set(flattenedData.map(d => d.group))])
@@ -74,7 +89,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
     // Initialize the simulations and node groups for each region
     let simulations = {};
     let nodeGroups = {};
-
+    let centroids = {};
 // Iterate over each unique region
     regions.forEach((region, i) => {
   // Filter the data for the current region
@@ -86,8 +101,9 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
     let circleCount = Math.round(d.value / 5000000);
         for (let i = 0; i < circleCount; i++) {
             nodes.push({
-            radius: 4,
-            group: d.group
+            radius:4,
+            group:d.group,
+            region:d.region
             });
         }
     });
@@ -102,9 +118,37 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
     .style("fill", d => color(d.group))
     .style("fill-opacity", 0.8)
     .attr("stroke", "black")
-    .style("stroke-width", 0.3);
+    .style("stroke-width", 0.3)
+    .on('mouseover', (event, d) => {
+        let region = d.region;
+        console.log(region);
+      // Remaining code...
+        svg.append("text")
+        .attr("class", "hover-text") // add a class to remove later
+        .attr("x", (x(region)+50))
+        .attr("y", 200) // adjust this value as needed
+        .style("text-anchor", "start")
+        .style("font-size", "13px") // adjust this value as needed
+        .style("fill", "black")
+        .text("Total: " + totalByRegion[region]);
+
+        svg.append("path")
+        .attr("class", "hover-line") // add a class to remove later
+        .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+50} 200`) // adjust this value as needed
+        .attr("stroke", "black")
+        .attr("stroke-width", 1)
+        .attr("fill", "none");
+      })
+    .on("mouseout", function() {
+        // Remove the text and line when mouse is moved out
+        d3.selectAll('.hover-text').remove();
+        d3.selectAll('.hover-line').remove();
+    });
+
+  
 
 
+    console.log(nodes);
     svg.append("text")
     .attr("x", (x(region)))
     .attr("y", 100)  // adjust this value as needed
@@ -112,6 +156,15 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
     .style("font-size", "16px") // adjust this value as needed
     .style("fill", "black")
     .text(region);
+
+
+    // svg.append("text")
+    // .attr("x", (x(region)))
+    // .attr("y", 150)  // adjust this value as needed
+    // .style("text-anchor", "middle")
+    // .style("font-size", "16px") // adjust this value as needed
+    // .style("fill", "black")
+    // .text("Total: " + totalByRegion[region]);
 
   // Initialize the simulation for the current region
     let simulation = d3.forceSimulation(nodes)
@@ -127,6 +180,68 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function(data){
   // Store the simulation and node group for the current region
   simulations[region] = simulation;
   nodeGroups[region] = nodeGroup;
+
+  centroids[region] = {
+    x: (i + 1) * (width / (regions.length+1)),
+    y: height / 2
+    
+  };
+
+  let breakPoint = {
+    x: centroids[region].x,
+    y: ((centroids[region].y + 150) / 2) // adjust this value as needed
+  };
+  
+
+  // svg.append("text")
+  // .attr("x", (x(region)+50))
+  // .attr("y", 200) // adjust this value as needed
+  // .style("text-anchor", "start")
+  // .style("font-size", "13px") // adjust this value as needed
+  // .style("fill", "black")
+  // .text("Total: " + totalByRegion[region]);
+
+  // svg.append("path")
+  // .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+50} 200`) // adjust this value as needed
+  // .attr("stroke", "black")
+  // .attr("stroke-width", 1)
+  // .attr("fill", "none");
+
+  // Select all clusters
+// Select all clusters
+// d3.selectAll(".clusterCircle")
+//     // Add event listener for the "mouseover" event
+//     .on("mouseover", function(d, i) {
+//         // The 'd' parameter represents the data bound to the circle
+//         let region = d.region; // Get the region from the data
+
+//         console.log(region);
+//         svg.append("text")
+//             .attr("class", "hover-text") // add a class to remove later
+//             .attr("x", (x(region)+50))
+//             .attr("y", 200) // adjust this value as needed
+//             .style("text-anchor", "start")
+//             .style("font-size", "13px") // adjust this value as needed
+//             .style("fill", "black")
+//             .text("Total: " + totalByRegion[region]);
+
+//         svg.append("path")
+//             .attr("class", "hover-line") // add a class to remove later
+//             .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region)+50} 200`) // adjust this value as needed
+//             .attr("stroke", "black")
+//             .attr("stroke-width", 1)
+//             .attr("fill", "none");
+//     })
+//     .on("mouseout", function() {
+//         // Remove the text and line when mouse is moved out
+//         d3.selectAll('.hover-text').remove();
+//         d3.selectAll('.hover-line').remove();
+//     });
+
+
+
+
+  
 });
 
 // Set up the tick function for each simulation
