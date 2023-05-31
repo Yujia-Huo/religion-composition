@@ -90,3 +90,55 @@ select {
   button:hover {
     background-color: #aeaeae; /* Green background on hover */
   }
+
+
+
+  @media only screen and (max-width: 1300px) {
+
+    label{
+
+        font-size: 8pt;
+    }
+
+
+
+    select{
+        font-size: 10pt;
+    }
+
+
+    #control{
+        margin-top: 30pt;
+
+    
+    }
+
+    p{
+        font-size: 8pt;
+
+    }
+
+
+    button {
+        font-size: 8pt;
+    }
+
+
+    h2{
+
+        font-size: 20pt;
+
+    }
+
+
+    img{
+        padding-top: 20px;
+        height:80px;
+    }
+
+
+    #dropDown{
+        margin-bottom: 10pt;
+    }
+
+  }
