@@ -1,33 +1,34 @@
-body{
-    font-family:DM Sans  ;
+body {
+    font-family: DM Sans;
 }
 
 
-img{
+img {
     padding-top: 20px;
 }
 
-#viz{
+#viz {
     width: 100%;
     margin-left: 70pt;
 
 }
 
 
-#container{
+#container {
     width: 100%;
     display: flex;
     flex-direction: row;
 }
 
-#control{
+#control {
     width: 20%;
     margin-top: 70pt;
     margin-left: 0pt;
     margin-right: 10pt;
 
 }
-#hint{
+
+#hint {
     margin-top: 0pt;
     font-size: 10pt;
 
@@ -40,27 +41,28 @@ img{
 
 
 .checkbox-container svg {
-margin-right: 8px; /* adjust as needed */
+    margin-right: 8px;
+    /* adjust as needed */
 }
 
-#title{
+#title {
     display: flex;
     flex-direction: row;
     margin-left: 70pt;
     margin-top: 20pt;
 }
 
-h2{
+h2 {
     padding-left: 20px;
     font-weight: 400;
     font-size: 25pt;
 }
 
-#dropDown{
+#dropDown {
     margin-bottom: 20pt;
 }
 
-#buttons{
+#buttons {
     margin-top: 20pt;
 
 }
@@ -74,46 +76,49 @@ select {
     padding-top: 5px;
     padding-bottom: 5px;
     font-size: 14pt;
-  }
+}
 
-  button {
-    background-color: #f8f8f8; /* Green */
-    color: #333; /* White text */
-    border:1px solid #ccc;
+button {
+    background-color: #f8f8f8;
+    /* Green */
+    color: #333;
+    /* White text */
+    border: 1px solid #ccc;
     padding-left: 12px;
     padding-right: 12px;
     padding-top: 4px;
     padding-bottom: 4px;
     font-size: 10pt;
-  }
+}
 
-  button:hover {
-    background-color: #aeaeae; /* Green background on hover */
-  }
+button:hover {
+    background-color: #aeaeae;
+    /* Green background on hover */
+}
 
 
 
-  @media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1300px) {
 
-    label{
+    label {
 
         font-size: 8pt;
     }
 
 
 
-    select{
+    select {
         font-size: 10pt;
     }
 
 
-    #control{
+    #control {
         margin-top: 30pt;
 
-    
+
     }
 
-    p{
+    p {
         font-size: 8pt;
 
     }
@@ -124,21 +129,21 @@ select {
     }
 
 
-    h2{
+    h2 {
 
         font-size: 20pt;
 
     }
 
 
-    img{
+    img {
         padding-top: 20px;
-        height:80px;
+        height: 80px;
     }
 
 
-    #dropDown{
+    #dropDown {
         margin-bottom: 10pt;
     }
 
-  }
+}
