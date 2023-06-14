@@ -140,6 +140,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
       .style("stroke-width", 0.3);
 
 
+    console.log(nodeGroup);
     let rect = nodeGroupG.selectAll('.bg')
       .data(rectData)
       .join('rect')
@@ -159,7 +160,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
           .attr("x", (x(region) + 30))
           .attr("y", 150) // adjust this value as needed
           .style("text-anchor", "start")
-          .style("font-size", "12px") // adjust this value as needed
+          .style("font-size", "14px") // adjust this value as needed
           .style("fill", "black")
           .style("font-weight", "bold")
           .text("Total: ");
@@ -180,7 +181,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
               .attr("x", (x(region) + 30))
               .attr("y", 170 + i * 20)
               .style("text-anchor", "start")
-              .style("font-size", "12px")
+              .style("font-size", "14px")
               .style("fill", "black")
               .style("font-weight", "bold")
               .text(`${selectedReligionData.group}:`);
@@ -189,7 +190,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
               .attr("class", "hover-text")
               .style("font-weight", "normal")
               .style("text-anchor", "start")
-              .style("font-size", "12px")
+              .style("font-size", "14px")
               .style("fill", "black")
               .text(` ${format(selectedReligionData.value)}`);
           }
@@ -225,7 +226,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
       .attr("x", (x(region)))
       .attr("y", 100)  // adjust this value as needed
       .style("text-anchor", "middle")
-      .style("font-size", "16px") // adjust this value as needed
+      .style("font-size", "20px") // adjust this value as needed
       .style("fill", "black")
       .text(region);
 
