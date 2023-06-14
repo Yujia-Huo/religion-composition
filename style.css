@@ -9,10 +9,14 @@ img {
 
 #viz {
     width: 100%;
-    margin-left: 70pt;
+    margin-left: 0pt;
 
 }
 
+p {
+    font-size: 10pt;
+
+}
 
 #container {
     width: 100%;
@@ -24,12 +28,12 @@ img {
     width: 20%;
     margin-top: 70pt;
     margin-left: 0pt;
-    margin-right: 10pt;
+    margin-right: 0pt;
 
 }
 
 #hint {
-    margin-top: 0pt;
+    padding-right: 100pt;
     font-size: 10pt;
 
 }
