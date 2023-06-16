@@ -13,6 +13,13 @@ img {
 
 }
 
+.svg-icon {
+    max-width: 50%;
+    /* Adjust this to your needs */
+    height: auto;
+    /* Maintains aspect ratio */
+}
+
 p {
     font-size: 10pt;
 
@@ -33,7 +40,7 @@ p {
 }
 
 #hint {
-    padding-right: 100pt;
+    padding-right: 70pt;
     font-size: 10pt;
 
 }
@@ -48,6 +55,12 @@ p {
     margin-right: 8px;
     /* adjust as needed */
 }
+
+label {
+
+    font-size: 10pt;
+}
+
 
 #title {
     display: flex;
@@ -109,6 +122,16 @@ button:hover {
         font-size: 8pt;
     }
 
+    .checkbox-container svg {
+        margin-right: 5px;
+    }
+
+
+    #hint {
+        padding-right: 20pt;
+        font-size: 10pt;
+
+    }
 
 
     select {
@@ -148,6 +171,135 @@ button:hover {
 
     #dropDown {
         margin-bottom: 10pt;
+    }
+
+}
+
+
+
+
+@media only screen and (max-width: 800px) {
+
+    label {
+        font-size: 6pt;
+    }
+
+    #hint {
+        padding-right: 20pt;
+        font-size: 10pt;
+        margin-top: 5px;
+
+    }
+
+    .checkbox-container svg {
+        margin-right: 3px;
+    }
+
+    select {
+        font-size: 7pt;
+    }
+
+
+    #control {
+        margin-top: 30pt;
+
+
+    }
+
+    p {
+        font-size: 5pt;
+
+    }
+
+
+    #buttons {
+        margin-top: 10px;
+        font-size: 7pt;
+    }
+
+
+    h2 {
+
+        font-size: 20pt;
+
+    }
+
+
+    img {
+        padding-top: 20px;
+        height: 80px;
+    }
+
+
+    #dropDown {
+        margin-bottom: 10pt;
+    }
+
+}
+
+
+@media only screen and (max-width: 500px) {
+
+    label {
+        font-size: 5pt;
+    }
+
+    #hint {
+        padding-right: 0pt;
+        font-size: 10pt;
+        margin-top: 2px;
+
+    }
+
+    .checkbox-container svg {
+        margin-right: 1px;
+    }
+
+    .checkbox-container p {
+        margin-left: 3px;
+    }
+
+    .checkbox-container {
+        margin-top: 1px;
+    }
+
+    select {
+        font-size: 6pt;
+    }
+
+
+    #control {
+        margin-top: 10pt;
+
+
+    }
+
+    p {
+        font-size: 5pt;
+
+    }
+
+
+    button {
+        margin-top: 5px;
+        font-size: 5pt;
+    }
+
+
+    h2 {
+        font-size: 20pt;
+
+    }
+
+
+    img {
+        padding-top: 20px;
+        height: 80px;
+    }
+
+
+    #dropDown {
+        margin-bottom: 0pt;
     }
 
 }
