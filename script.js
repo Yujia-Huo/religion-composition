@@ -157,10 +157,10 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
         const format = d3.format(",");
         let totalText = svg.append("text")
           .attr("class", "hover-text") // add a class to remove later
-          .attr("x", (x(region) + 30))
-          .attr("y", 150) // adjust this value as needed
+          .attr("x", (x(region)))
+          .attr("y", 600) // adjust this value as needed
           .style("text-anchor", "start")
-          .style("font-size", "14px") // adjust this value as needed
+          .style("font-size", "16px") // adjust this value as needed
           .style("fill", "black")
           .style("font-weight", "bold")
           .text("Total: ");
@@ -178,10 +178,10 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
           if (selectedReligionData) {
             let religiousText = svg.append("text")
               .attr("class", "hover-text")
-              .attr("x", (x(region) + 30))
-              .attr("y", 170 + i * 20)
+              .attr("x", (x(region)))
+              .attr("y", 620 + i * 20)
               .style("text-anchor", "start")
-              .style("font-size", "14px")
+              .style("font-size", "16px")
               .style("fill", "black")
               .style("font-weight", "bold")
               .text(`${selectedReligionData.group}:`);
@@ -190,7 +190,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
               .attr("class", "hover-text")
               .style("font-weight", "normal")
               .style("text-anchor", "start")
-              .style("font-size", "14px")
+              .style("font-size", "16px")
               .style("fill", "black")
               .text(` ${format(selectedReligionData.value)}`);
           }
@@ -200,7 +200,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
 
         svg.append("path")
           .attr("class", "hover-line") // add a class to remove later
-          .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region) + 30} 200`) // adjust this value as needed
+          .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region) + 30} 600`) // adjust this value as needed
           .attr("stroke", "black")
           .attr("stroke-width", .5)
           .attr("fill", "none");
@@ -218,7 +218,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
 
     let breakPoint = {
       x: centroids[region].x,
-      y: ((centroids[region].y + 150) / 2) // adjust this value as needed
+      y: ((centroids[region].y + 600) / 2) // adjust this value as needed
     };
 
     // console.log(nodes);
@@ -236,7 +236,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
     let simulation = d3.forceSimulation(nodes)
       .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length + .4)) - 120)) // Adjust the x-position based on the region index
       .force("y", d3.forceY().strength(0.1).y(height / 2))
-      .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length + .4)) - 120).y(height / 2)) // Adjust the center position based on the region index
+      .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length + .4)) - 120).y(height / 2.5)) // Adjust the center position based on the region index
       .force("charge", d3.forceManyBody().strength(.1))
       .force("collide", d3.forceCollide().strength(.1).radius(10).iterations(1))
       .tick(20)
@@ -306,6 +306,15 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
   d3.selectAll(".option").on("change", update);
   update()
 
+
+
+
+
+
+
+
+
+  /*********************** */
   d3.select("#year-select").on("change", function () {
     // Get the selected year
     const selectedYear = +d3.select(this).property("value");
@@ -397,10 +406,10 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
           // Remaining code...
           let totalText = svg.append("text")
             .attr("class", "hover-text") // add a class to remove later
-            .attr("x", (x(region) + 30))
-            .attr("y", 150) // adjust this value as needed
+            .attr("x", (x(region)))
+            .attr("y", 600) // adjust this value as needed
             .style("text-anchor", "start")
-            .style("font-size", "12px") // adjust this value as needed
+            .style("font-size", "16px") // adjust this value as needed
             .style("fill", "black")
             .style("font-weight", "bold")
             .text("Total: ");
@@ -419,10 +428,10 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
             if (selectedReligionData) {
               let religiousText = svg.append("text")
                 .attr("class", "hover-text")
-                .attr("x", (x(region) + 30))
-                .attr("y", 170 + i * 20)
+                .attr("x", (x(region)))
+                .attr("y", 620 + i * 20)
                 .style("text-anchor", "start")
-                .style("font-size", "12px")
+                .style("font-size", "16px")
                 .style("fill", "black")
                 .style("font-weight", "bold")
                 .text(`${selectedReligionData.group}:`);
@@ -431,7 +440,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
                 .attr("class", "hover-text")
                 .style("font-weight", "normal")
                 .style("text-anchor", "start")
-                .style("font-size", "12px")
+                .style("font-size", "16px")
                 .style("fill", "black")
                 .text(` ${format(selectedReligionData.value)}`);
             }
@@ -440,7 +449,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
 
           svg.append("path")
             .attr("class", "hover-line") // add a class to remove later
-            .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region) + 30} 200`) // adjust this value as needed
+            .attr("d", `M ${centroids[region].x} ${centroids[region].y} L ${breakPoint.x} ${breakPoint.y} L ${x(region) + 30} 600`) // adjust this value as needed
             .attr("stroke", "black")
             .attr("stroke-width", .5)
             .attr("fill", "none");
@@ -458,13 +467,13 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
 
       let breakPoint = {
         x: centroids[region].x,
-        y: ((centroids[region].y + 150) / 2) // adjust this value as needed
+        y: ((centroids[region].y + 600) / 2) // adjust this value as needed
       };
       // Initialize the simulation for the current region
       let simulation = d3.forceSimulation(nodes)
         .force("x", d3.forceX().strength(1).x((i + 1) * (width / (regions.length + .4)) - 120)) // Adjust the x-position based on the region index
-        .force("y", d3.forceY().strength(0.1).y(height / 2))
-        .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length + .4)) - 120).y(height / 2)) // Adjust the center position based on the region index
+        .force("y", d3.forceY().strength(0.1).y(height / 2.5))
+        .force("center", d3.forceCenter().x((i + 1) * (width / (regions.length + .4)) - 120).y(height / 2.5)) // Adjust the center position based on the region index
         .force("charge", d3.forceManyBody().strength(.1))
         .force("collide", d3.forceCollide().strength(.1).radius(10).iterations(1))
         .tick(20)

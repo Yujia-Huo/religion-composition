@@ -26,7 +26,7 @@ p {
 }
 
 #selectYear {
-    font-size: 12pt;
+    font-size: 15pt;
 
 
 }
@@ -40,7 +40,7 @@ p {
 #control {
     width: 20%;
     margin-top: 70pt;
-    margin-left: 0pt;
+    margin-left: 10pt;
     margin-right: 0pt;
 
 }
@@ -146,7 +146,8 @@ button:hover {
 
 
     #control {
-        margin-top: 30pt;
+        margin-top: 20pt;
+        margin-left: 10pt;
 
 
     }
@@ -212,7 +213,9 @@ button:hover {
 
 
     #control {
-        margin-top: 30pt;
+        margin-top: 10pt;
+        margin-left: 10pt;
+
 
 
     }
@@ -225,15 +228,18 @@ button:hover {
 
     #buttons {
         margin-top: 10px;
-        font-size: 7pt;
+    }
+
+    button {
+        font-size: 5pt;
     }
 
 
-    h2 {
+    /* h2 {
 
-        font-size: 20pt;
+        font-size: 15pt;
 
-    }
+    } */
 
 
     img {
@@ -246,11 +252,20 @@ button:hover {
         margin-bottom: 10pt;
     }
 
+
+    #selectYear {
+        font-size: 8pt;
+
+
+    }
 }
 
 
 @media only screen and (max-width: 500px) {
 
+    .option {
+        margin-right: 1px;
+    }
 
     #container {
         width: 100%;
@@ -259,7 +274,7 @@ button:hover {
     }
 
     label {
-        font-size: 5pt;
+        font-size: 4pt;
     }
 
     #hint {
@@ -311,12 +326,15 @@ button:hover {
 
 
     #control {
+        margin-left: 0pt;
         margin-top: 10pt;
+
+        margin-bottom: 10pt;
         width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        gap: 50px;
+        gap: 30px;
 
 
     }
@@ -326,6 +344,7 @@ button:hover {
         width: 100%;
         display: flex;
         flex-direction: row;
+        /* gap: 10px; */
 
     }
 
@@ -334,16 +353,20 @@ button:hover {
 
     }
 
+    #buttons {
+        margin-top: 0px;
+
+    }
 
     button {
         margin-top: 0px;
-        font-size: 5pt;
+        font-size: 3pt;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 2.5px;
+        padding-bottom: 2.5px;
     }
 
-    #buttons {
-        margin-top: 3px;
-
-    }
 
     h2 {
         font-size: 20pt;
