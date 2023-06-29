@@ -119,7 +119,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
         width: '137pt',
         height: '250pt',
         x: x(region) - 90,
-        y: 300,
+        y: 200,
         region: region,
         value1: regionData[0].value // assuming region is a variable in your code
       }
