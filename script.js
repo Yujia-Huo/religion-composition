@@ -160,7 +160,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
         svg.append("text")
           .attr("class", "hover-text")
           .attr("x", (x(region)))
-          .attr("y", 600)
+          .attr("y", 620)
           .style("text-anchor", "end")
           .style("font-size", "16px")
           .style("fill", "black")
@@ -171,7 +171,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
         svg.append("text")
           .attr("class", "hover-text")
           .attr("x", (x(region)) + 10) // adjust this offset as needed
-          .attr("y", 600)
+          .attr("y", 620)
           .style("text-anchor", "start")
           .style("font-size", "16px")
           .style("fill", "black")
@@ -187,7 +187,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
             svg.append("text")
               .attr("class", "hover-text")
               .attr("x", (x(region)))
-              .attr("y", 620 + i * 20)
+              .attr("y", 640 + i * 20)
               .style("text-anchor", "end")
               .style("font-size", "16px")
               .style("fill", "black")
@@ -198,7 +198,7 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
             svg.append("text")
               .attr("class", "hover-text")
               .attr("x", (x(region)) + 10) // adjust this offset as needed
-              .attr("y", 620 + i * 20)
+              .attr("y", 640 + i * 20)
               .style("text-anchor", "start")
               .style("font-size", "16px")
               .style("fill", "black")
@@ -406,27 +406,30 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
         .attr("x", d => d.x)
         .attr("y", d => d.y)
         .style('fill', 'transparent');
-
       rect
         .on('mouseover', (event, d) => {
           let region = d.region;
           const format = d3.format(",");
-          // console.log(region);
-          // let populationDataString = regionData.map(religionData => `${religionData.group}: ${format(religionData.value)}`).join('\n');
-          // Remaining code...
-          let totalText = svg.append("text")
-            .attr("class", "hover-text") // add a class to remove later
+
+          // For the Total Label
+          svg.append("text")
+            .attr("class", "hover-text")
             .attr("x", (x(region)))
-            .attr("y", 600) // adjust this value as needed
-            .style("text-anchor", "start")
-            .style("font-size", "16px") // adjust this value as needed
+            .attr("y", 620)
+            .style("text-anchor", "end")
+            .style("font-size", "16px")
             .style("fill", "black")
             .style("font-weight", "bold")
             .text("Total: ");
 
-          totalText.append("tspan")
-            .style("font-weight", "normal")
-            // .attr("x", (x(region)+50) + svg.select(".hover-text").node().getComputedTextLength())
+          // For the Total Value
+          svg.append("text")
+            .attr("class", "hover-text")
+            .attr("x", (x(region)) + 10) // adjust this offset as needed
+            .attr("y", 620)
+            .style("text-anchor", "start")
+            .style("font-size", "16px")
+            .style("fill", "black")
             .text(format(totalByRegion[region]));
 
 
@@ -434,25 +437,27 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
 
           selectedReligions.forEach((selectedReligion, i) => {
             let selectedReligionData = regionData.find(religionData => religionData.group === selectedReligion);
-
             if (selectedReligionData) {
-              let religiousText = svg.append("text")
+              // For the Religion Label
+              svg.append("text")
                 .attr("class", "hover-text")
                 .attr("x", (x(region)))
-                .attr("y", 620 + i * 20)
-                .style("text-anchor", "start")
+                .attr("y", 640 + i * 20)
+                .style("text-anchor", "end")
                 .style("font-size", "16px")
                 .style("fill", "black")
                 .style("font-weight", "bold")
-                .text(`${selectedReligionData.group}:`);
+                .text(`${selectedReligionData.group}: `);
 
-              religiousText.append("tspan")
+              // For the Religion Value
+              svg.append("text")
                 .attr("class", "hover-text")
-                .style("font-weight", "normal")
+                .attr("x", (x(region)) + 10) // adjust this offset as needed
+                .attr("y", 640 + i * 20)
                 .style("text-anchor", "start")
                 .style("font-size", "16px")
                 .style("fill", "black")
-                .text(` ${format(selectedReligionData.value)}`);
+                .text(format(selectedReligionData.value));
             }
           });
 
