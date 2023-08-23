@@ -159,9 +159,9 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
         // For the Total Label
         svg.append("text")
           .attr("class", "hover-text")
-          .attr("x", (x(region)))
+          .attr("x", (x(region) - 100))
           .attr("y", 620)
-          .style("text-anchor", "end")
+          .style("text-anchor", "start")
           .style("font-size", "16px")
           .style("fill", "black")
           .style("font-weight", "bold")
@@ -170,9 +170,9 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
         // For the Total Value
         svg.append("text")
           .attr("class", "hover-text")
-          .attr("x", (x(region)) + 10) // adjust this offset as needed
+          .attr("x", (x(region)) + 110) // adjust this offset as needed
           .attr("y", 620)
-          .style("text-anchor", "start")
+          .style("text-anchor", "end")
           .style("font-size", "16px")
           .style("fill", "black")
           .text(format(totalByRegion[region]));
@@ -186,9 +186,9 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
             // For the Religion Label
             svg.append("text")
               .attr("class", "hover-text")
-              .attr("x", (x(region)))
+              .attr("x", (x(region)) - 100)
               .attr("y", 640 + i * 20)
-              .style("text-anchor", "end")
+              .style("text-anchor", "start")
               .style("font-size", "16px")
               .style("fill", "black")
               .style("font-weight", "bold")
@@ -197,9 +197,9 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
             // For the Religion Value
             svg.append("text")
               .attr("class", "hover-text")
-              .attr("x", (x(region)) + 10) // adjust this offset as needed
+              .attr("x", (x(region)) + 110) // adjust this offset as needed
               .attr("y", 640 + i * 20)
-              .style("text-anchor", "start")
+              .style("text-anchor", "end")
               .style("font-size", "16px")
               .style("fill", "black")
               .text(format(selectedReligionData.value));
@@ -414,9 +414,9 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
           // For the Total Label
           svg.append("text")
             .attr("class", "hover-text")
-            .attr("x", (x(region)))
+            .attr("x", (x(region) - 110))
             .attr("y", 620)
-            .style("text-anchor", "end")
+            .style("text-anchor", "start")
             .style("font-size", "16px")
             .style("fill", "black")
             .style("font-weight", "bold")
@@ -425,9 +425,9 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
           // For the Total Value
           svg.append("text")
             .attr("class", "hover-text")
-            .attr("x", (x(region)) + 10) // adjust this offset as needed
+            .attr("x", (x(region)) + 110) // adjust this offset as needed
             .attr("y", 620)
-            .style("text-anchor", "start")
+            .style("text-anchor", "end")
             .style("font-size", "16px")
             .style("fill", "black")
             .text(format(totalByRegion[region]));
@@ -441,9 +441,9 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
               // For the Religion Label
               svg.append("text")
                 .attr("class", "hover-text")
-                .attr("x", (x(region)))
+                .attr("x", (x(region) - 110))
                 .attr("y", 640 + i * 20)
-                .style("text-anchor", "end")
+                .style("text-anchor", "start")
                 .style("font-size", "16px")
                 .style("fill", "black")
                 .style("font-weight", "bold")
@@ -452,9 +452,9 @@ d3.csv("./data/religion_comp.csv", Parsed).then(function (data) {
               // For the Religion Value
               svg.append("text")
                 .attr("class", "hover-text")
-                .attr("x", (x(region)) + 10) // adjust this offset as needed
+                .attr("x", (x(region)) + 110) // adjust this offset as needed
                 .attr("y", 640 + i * 20)
-                .style("text-anchor", "start")
+                .style("text-anchor", "end")
                 .style("font-size", "16px")
                 .style("fill", "black")
                 .text(format(selectedReligionData.value));
